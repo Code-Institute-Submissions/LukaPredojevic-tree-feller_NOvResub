@@ -1,4 +1,45 @@
 
-body {
-    margin: 0
+:root {
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+/* general layout */
+
+#game {
+
+    display: grid;
+    grid-template-areas: 
+    "stats interaction shop";
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 100vh 100vh 100vh;
+    
+}
+
+section {
+    width: 100%;
+    height: 100%;
+}
+
+/* stats section */
+
+.stats {
+    grid-area: stats;
+}
+
+/* interaction area */
+
+.interaction-area {
+    grid-area: interaction;
+}
+
+/* shop section */
+
+.shop {
+    grid-area: shop;
 }
