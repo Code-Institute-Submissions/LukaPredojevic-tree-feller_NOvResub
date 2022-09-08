@@ -1,0 +1,42 @@
+{
+
+    "axes": [
+        {
+            "name": "Wooden Axe",
+            "image": "assets/images/axes/wooden-axe.webp",
+
+            "price": "20",
+            "multipliers": {
+                "wood": 2
+            }
+        },
+        {
+            "name": "Stone Axe",
+            "image": "assets/images/axes/stone-axe.webp",
+            
+            "price": "400",
+            "multipliers": {
+                "wood": 4
+            }
+        },
+        {
+            "name": "Iron Axe",
+            "image": "assets/images/axes/iron-axe.webp",
+
+            "price": "1600",
+            "multipliers": {
+                "wood": 16
+            }
+        },
+        {
+            "name": "Gold Axe",
+            "image": "assets/images/axes/gold-axe.webp",
+
+            "price": "10000",
+            "multipliers": {
+                "wood": 100
+            }
+        }
+    ]
+
+}
