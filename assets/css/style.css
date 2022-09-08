@@ -34,12 +34,29 @@ section {
 
 .stats {
     grid-area: stats;
+    background-color: #281A20;
 }
 
 /* interaction area */
 
 .interaction-area {
+
     grid-area: interaction;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#tree {
+
+    width: 280px;
+    height: 360px;
+
+    background-image: url("../images/trees-pixelart.png");
+    background-position: 0px 0px;
+
 }
 
 /* shop section */
