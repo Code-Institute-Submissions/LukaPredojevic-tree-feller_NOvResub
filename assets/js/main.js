@@ -32,11 +32,13 @@ if (localStorage.data) {
 
 function syncStatsDisplay() {
 
+    statValues.ingameTime += 0.1
+
     statElements.woodCount.setAttribute("data-value", statValues.woodCount)
     statElements.woodPerSecond.setAttribute("data-value", statValues.woodPerSecond)
 
     statElements.totalWood.setAttribute("data-value", statValues.totalWood)
-    statElements.ingameTime.setAttribute("data-value", statValues.ingameTime)
+    statElements.ingameTime.setAttribute("data-value", Math.floor(statValues.ingameTime))
     statElements.passedTime.setAttribute("data-value", Math.floor((Date.now() - statValues.joinTime) * 0.001))
 
 
@@ -68,7 +70,6 @@ setInterval(syncStatsDisplay, 100)
 
 setInterval(() => {
 
-    statValues.ingameTime++
     localStorage.setItem("data", JSON.stringify(statValues))
 
 }, 1000)
