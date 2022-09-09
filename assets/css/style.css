@@ -137,6 +137,9 @@ h1 {
 
 }
 
+.information li::after {
+    content: attr(data-value)
+}
 
 /* Tutorial */
 

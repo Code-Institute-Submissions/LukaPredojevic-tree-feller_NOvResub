@@ -2,14 +2,50 @@
 const gameArea = document.getElementById("interaction-area")
 const tree = document.getElementById("tree")
 
-var playerWood = 0
-
 var lastInteract = 0
 var animating = false
 
+const statElements = {
+    "woodCount": document.getElementById("wood-count"),
+    "woodPerSecond": document.getElementById("wood-per-second"),
+    "totalWood": document.getElementById("total-wood"),
+    "ingameTime": document.getElementById("ingame-time"),
+    "passedTime": document.getElementById("passed-time")
+}
+
+if (localStorage.data) {
+
+    var statValues = JSON.parse(localStorage.data)
+
+} else {
+
+    var statValues = {
+        "woodCount": 0,
+        "woodPerSecond": 0,
+        "totalWood": 0,
+        "ingameTime": 0,
+        "joinTime": Date.now()
+    }
+    
+}
+
+
+function syncStatsDisplay() {
+
+    statElements.woodCount.setAttribute("data-value", statValues.woodCount)
+    statElements.woodPerSecond.setAttribute("data-value", statValues.woodPerSecond)
+
+    statElements.totalWood.setAttribute("data-value", statValues.totalWood)
+    statElements.ingameTime.setAttribute("data-value", statValues.ingameTime)
+    statElements.passedTime.setAttribute("data-value", Math.floor((Date.now() - statValues.joinTime) * 0.001))
+
+
+}
+
 function onPlayerClick() {
 
-    playerWood++
+    statValues.woodCount += 1
+    statValues.totalWood += 1
 
     animating = true
     lastInteract = Date.now()
@@ -28,5 +64,13 @@ function checkAnimation() {
 }
 
 setInterval(checkAnimation, 10)
+setInterval(syncStatsDisplay, 100)
+
+setInterval(() => {
+
+    statValues.ingameTime++
+    localStorage.setItem("data", JSON.stringify(statValues))
+
+}, 1000)
 
 tree.addEventListener("click", onPlayerClick);
