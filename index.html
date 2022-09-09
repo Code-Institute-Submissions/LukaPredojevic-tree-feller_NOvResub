@@ -31,12 +31,12 @@
         </section>
 
         <section class="tutorial">
-            <h1>How to play?</h1>
+            <h1>How to play</h1>
             <p>
                 Welcome to Tree Feller a game in which you collect wood.
-                The game is very simple and only have a few core mechanics:
-                You gain wood by pressing on the tree which you can spent on
-                upgrades in the store. Each upgrade gives your a different boost.
+                The game is very simple and only has a few core mechanics:
+                You gain wood by pressing on the tree. Wood you can spent on
+                upgrades in the store. Each upgrade gives you a different boost.
                 Some upgrades even give you passive wood per second.
             </p>
         </section>
@@ -44,17 +44,17 @@
         <div class="seperator-left"></div>
 
         <section class="interaction-area">
-            <button id="tree" type="button" aria-label="clickable tree"></button>
+            <div onmousedown='event.preventDefault ? event.preventDefault() : event.returnValue = false' id="tree"></div>
         </section>
 
         <div class="seperator-right"></div>
 
         <section class="shop">
             <h1>Shop</h1>
-            <ul class="products"><li></li></ul>
+            <ul id="products"></ul>
         </section>
 
-
+        <script src="assets/js/shop.js"></script>
         <script src="assets/js/main.js"></script>
 
     </main>

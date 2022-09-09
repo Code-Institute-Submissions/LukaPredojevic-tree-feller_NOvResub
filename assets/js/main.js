@@ -1,9 +1,5 @@
 
-const gameArea = document.getElementById("interaction-area")
 const tree = document.getElementById("tree")
-
-var lastInteract = 0
-var animating = false
 
 const statElements = {
     "woodCount": document.getElementById("wood-count"),
@@ -13,15 +9,27 @@ const statElements = {
     "passedTime": document.getElementById("passed-time")
 }
 
+const audio = new Audio("assets/audio/click.wav");
+
+var lastInteract = 0
+var animating = false
+
 if (localStorage.data) {
 
-    var statValues = JSON.parse(localStorage.data)
+    var playerData = JSON.parse(localStorage.data)
+    var playerUpgrades = playerData.upgrades
+    var playerStats = playerData.stats
 
 } else {
 
-    var statValues = {
+    var playerUpgrades = {
+        "axes": 0,
+        "workers": 0
+    }
+
+    var playerStats = {
         "woodCount": 0,
-        "woodPerSecond": 0,
+        "woodPerSecond": 1,
         "totalWood": 0,
         "ingameTime": 0,
         "joinTime": Date.now()
@@ -29,29 +37,65 @@ if (localStorage.data) {
     
 }
 
+const shop = new Shop(playerUpgrades)
+shop.updateShop(playerStats)
+
+for (const [type, product] of Object.entries(shop.products)) {
+
+    product.element.addEventListener("click", () => {
+
+        let price = shop.buyProduct(playerStats, type)
+
+        if (price) {
+
+            playerStats.woodCount -= price
+            product.update(playerUpgrades[type])
+
+            
+        }
+        
+
+    });
+
+}
 
 function syncStatsDisplay() {
 
-    statValues.ingameTime += 0.1
+    playerStats.ingameTime += 0.1
+    playerStats.woodPerSecond = shop.calculateWpsMultiplier(1)
 
-    statElements.woodCount.setAttribute("data-value", statValues.woodCount)
-    statElements.woodPerSecond.setAttribute("data-value", statValues.woodPerSecond)
+    statElements.woodCount.setAttribute("data-value", Math.floor(playerStats.woodCount))
+    statElements.woodPerSecond.setAttribute("data-value", playerStats.woodPerSecond)
 
-    statElements.totalWood.setAttribute("data-value", statValues.totalWood)
-    statElements.ingameTime.setAttribute("data-value", Math.floor(statValues.ingameTime))
-    statElements.passedTime.setAttribute("data-value", Math.floor((Date.now() - statValues.joinTime) * 0.001))
+    statElements.totalWood.setAttribute("data-value", Math.floor(playerStats.totalWood))
+    statElements.ingameTime.setAttribute("data-value", Math.floor(playerStats.ingameTime))
+    statElements.passedTime.setAttribute("data-value", Math.floor((Date.now() - playerStats.joinTime) * 0.001))
 
 
 }
 
 function onPlayerClick() {
 
-    statValues.woodCount += 1
-    statValues.totalWood += 1
+    woodIncrement = shop.calculateClickMultiplier(1)
+
+    playerStats.woodCount += woodIncrement
+    playerStats.totalWood += woodIncrement
 
     animating = true
     lastInteract = Date.now()
     tree.classList.add("tree-feedback")
+    audio.play();
+
+}
+
+function tickWoodPerSecond() {
+
+    woodIncrement = shop.calculateWpsMultiplier(1) * 0.1
+
+    playerStats.woodCount += woodIncrement
+    playerStats.totalWood += woodIncrement
+
+    shop.updateShop(playerStats)
 
 }
 
@@ -67,10 +111,14 @@ function checkAnimation() {
 
 setInterval(checkAnimation, 10)
 setInterval(syncStatsDisplay, 100)
+setInterval(tickWoodPerSecond, 100)
 
 setInterval(() => {
 
-    localStorage.setItem("data", JSON.stringify(statValues))
+    localStorage.setItem("data", JSON.stringify({
+        "stats": playerStats,
+        "upgrades": playerUpgrades
+    }))
 
 }, 1000)
 

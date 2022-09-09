@@ -274,23 +274,60 @@ h1 {
 
 }
 
-.products {
+#products {
 
-    width: 100%;
+    width: 90%;
     height: 90%;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 5%;
 
     list-style: none;
 
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+
 }
 
-.products li {
+.product {
 
-    width: 75%;
+    width: 90%;
+    height: 90%;
+    margin: 5%;
+
+    border-radius: 25px;
+    background: radial-gradient(circle, rgba(65,38,50,1) 0%, rgba(118,62,58,1) 40%, rgba(179,111,88,1) 100%);
+    box-shadow: 5px 5px 0px 0px #191425, 5px 5px 5px 4px rgb(0 0 0 / 10%);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+}
+
+.product h3 {
+
+    width: 100%;
     height: 15%;
-    background-color: white;
+
+    text-align: center;
+
+}
+
+.product button {
+
+    width: 100%;
+    height: 100%;
+
+    grid-area: button;
+
+}
+
+.locked-product {
+
+    filter: grayscale(1)
 
 }
