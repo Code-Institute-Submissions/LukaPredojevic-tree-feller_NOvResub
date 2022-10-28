@@ -9,7 +9,8 @@ const DEFAULT_SCHEMA = CONFIGS.DEFAULT_SCHEMA
 */
 class DataController {
 
-
+    data = {}
+    registeredElementSyncs = {}
 
     /**
     * Initiliazies class and saves data to object from localStorage.
@@ -66,6 +67,25 @@ class DataController {
         this.data = newData
 
         return newData
+
+    }
+
+    /**
+    * This method allows you to sync a html elements value with a value from data.
+    * @param {Object} domElement  The element you wish to sync.
+    * @param {String} dataKey     The key for the value you want to be sync from data.
+    * @return {Boolean}           Indicates succesion of 
+    */
+    registerElementSync(domElement, dataKey) {
+
+        if (!domElement || !dataKey) return false
+
+        if (dataKey in this.data) {
+
+            this.registeredElementSyncs[dataKey] = domElement
+            return true
+
+        }
 
     }
 
