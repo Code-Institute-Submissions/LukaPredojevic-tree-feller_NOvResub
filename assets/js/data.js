@@ -61,6 +61,9 @@ class DataController {
 
         }
 
+        this.data[key] = value
+        return true
+
     }
 
     /**
@@ -123,6 +126,8 @@ class DataController {
             return true
 
         }
+
+        return false
 
     }
 
