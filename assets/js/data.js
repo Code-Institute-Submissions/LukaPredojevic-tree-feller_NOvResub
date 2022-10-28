@@ -83,7 +83,7 @@ class DataController {
         
         let newData = DEFAULT_SCHEMA
 
-        for ((key, _) in DEFAULT_SCHEMA) {
+        for (key in DEFAULT_SCHEMA) {
             
             if (key in oldData) {
 
