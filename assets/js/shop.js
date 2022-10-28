@@ -132,8 +132,8 @@ class Product {
         this.data = productData[this.type][productLevel]
         console.log(this.data)
 
-        this.element.getElementsByTagName("img").src = this.data.image
-        this.element.getElementsByTagName("h3").innerHTML = this.data.price + " Wood"
+        this.element.getElementsByTagName("img")[0].src = this.data.image
+        this.element.getElementsByTagName("h3")[0].innerHTML = this.data.price + " Wood"
 
     }
 
