@@ -13,7 +13,7 @@ class DataController {
 
     /**
     * Initiliazies class and saves data to object from localStorage.
-    * 
+    * @return {Object} Object for handling user data.
     */
     constructor() {
         
@@ -40,7 +40,32 @@ class DataController {
         }
 
         this.data = DEFAULT_SCHEMA
+
+    }
+
+    /**
+    * Method attempts to mirgrate users data from a old schema to a new schema. 
+    * @param  {Object} oldData  User data using a old schema.
+    * @return {Object}          Migrated data using new schema.
+    */
+    migrateData(oldData) {
         
+        let newData = DEFAULT_SCHEMA
+
+        for ((key, _) in DEFAULT_SCHEMA) {
+            
+            if (key in oldData) {
+
+                newData[key] = oldData[key]
+
+            }
+
+        }
+
+        newData.version = DEFAULT_SCHEMA.version
+        this.data = newData
+
+        return newData
 
     }
 
