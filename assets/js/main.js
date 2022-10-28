@@ -1,3 +1,5 @@
+import DataController from "./data.js"
+console.log(DataController)
 
 const tree = document.getElementById("tree")
 
