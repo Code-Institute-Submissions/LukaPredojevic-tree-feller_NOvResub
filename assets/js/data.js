@@ -56,7 +56,8 @@ class DataController {
 
         if (key in this.registeredElementSyncs) {
 
-            this.registeredElementSyncs[key].innerHTML = value
+            registeredInfo = this.registeredElementSyncs[key]
+            registeredInfo["domElement"].innerHTML = registeredInfo["prepend"] + toString(value)
 
         }
 
@@ -105,15 +106,20 @@ class DataController {
     * Whenever a synced value is changed using the setValue method the given Elements innerHTML will be set to the new value.
     * @param {Object}  domElement  The element you wish to sync.
     * @param {String}  dataKey     The key for the value you want to be sync from data.
+    * @param {String}  prepend     String to prepend to data.
     * @return {Boolean}           Indicates succesion of 
     */
-    registerElementSync(domElement, dataKey) {
+    registerElementSync(domElement, dataKey, prepend) {
 
         if (!domElement || !dataKey) return false
 
         if (dataKey in this.data) {
 
-            this.registeredElementSyncs[dataKey] = domElement
+            this.registeredElementSyncs[dataKey] = {
+                "prepend": prepend || "",
+                "domElement": domElement
+            }
+
             return true
 
         }
